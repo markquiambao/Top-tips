@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ROW - TopTips</title>
+  
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css" rel=" stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel=" stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+body {
+  background: #069;
+}
+
+div.material-table {
+  padding: 0;
+}
+
+div.material-table .hiddensearch {
+  padding: 0 14px 0 24px;
+  border-bottom: solid 1px #DDDDDD;
+  display: none;
+}
+
+div.material-table .hiddensearch input {
+  margin: 0;
+  border: transparent 0 !important;
+  height: 48px;
+  color: rgba(0, 0, 0, .84);
+}
+
+div.material-table .hiddensearch input:active {
+  border: transparent 0 !important;
+}
+
+div.material-table table {
+  table-layout: fixed;
+}
+
+div.material-table .table-header {
+  height: 64px;
+  padding-left: 24px;
+  padding-right: 14px;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  display:flex;
+  align-items: center;
+  
+  -webkit-display: flex;
+  border-bottom: solid 1px #DDDDDD;
+}
+
+div.material-table .table-header .actions {
+  display: -webkit-flex;
+  margin-left: auto;
+}
+
+div.material-table .table-header .btn-flat {
+    min-width: 36px;
+    padding: 0 8px;
+}
+
+div.material-table .table-header input {
+  margin: 0;
+  height: auto;
+}
+
+div.material-table .table-header i {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 24px;
+}
+
+div.material-table .table-footer {
+  height: 56px;
+  padding-left: 24px;
+  padding-right: 14px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-align-items: center;
+  align-items: center;
+  font-size: 12px !important;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+div.material-table .table-footer .dataTables_length {
+  display: -webkit-flex;
+  display: flex;
+}
+
+div.material-table .table-footer label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row
+  /* works with row or column */
+  
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+div.material-table .table-footer .select-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row
+  /* works with row or column */
+  
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+div.material-table .table-footer .dataTables_info,
+div.material-table .table-footer .dataTables_length {
+  margin-right: 32px;
+}
+
+div.material-table .table-footer .material-pagination {
+  display: flex;
+  -webkit-display: flex;
+  margin: 0;
+}
+
+div.material-table .table-footer .material-pagination li:first-child {
+  margin-right: 24px;
+}
+
+div.material-table .table-footer .material-pagination li a {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+div.material-table .table-footer .select-wrapper input.select-dropdown {
+  margin: 0;
+  border-bottom: none;
+  height: auto;
+  line-height: normal;
+  font-size: 12px;
+  width: 40px;
+  text-align: right;
+}
+
+div.material-table .table-footer select {
+  background-color: transparent;
+  width: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  height: auto;
+  margin-left: 20px;
+}
+
+div.material-table .table-title {
+  font-size: 20px;
+  color: #000;
+}
+
+div.material-table table tr td {
+  padding: 0 0 0 56px;
+  height: 48px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.87);
+  border-bottom: solid 1px #DDDDDD;
+  /*white-space: nowrap;*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.material-table table tr td a {
+  color: inherit;
+}
+
+div.material-table table tr td a i {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+div.material-table table tr {
+  font-size: 12px;
+}
+
+div.material-table table th {
+  font-size: 12px;
+  font-weight: bold;
+  color: #757575;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0;
+  height: 56px;
+  padding-left: 56px;
+  vertical-align: middle;
+  outline: none !important;
+}
+
+div.material-table table th.sorting_asc,
+div.material-table table th.sorting_desc {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+div.material-table table th.sorting:after,
+div.material-table table th.sorting_asc:after,
+div.material-table table th.sorting_desc:after {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  content: "arrow_back";
+  -webkit-transform: rotate(90deg);
+  display: none;
+  vertical-align: middle;
+}
+
+div.material-table table th.sorting:hover:after,
+div.material-table table th.sorting_asc:after,
+div.material-table table th.sorting_desc:after {
+  display: inline-block;
+}
+
+div.material-table table th.sorting_desc:after {
+  content: "arrow_forward";
+}
+
+div.material-table table tbody tr:hover {
+  background-color: #EEE;
+}
+
+div.material-table table th:first-child,
+div.material-table table td:first-child {
+  padding: 0 0 0 24px;
+}
+
+div.material-table table th:last-child,
+div.material-table table td:last-child {
+  padding: -1 14px 0 0;
+}
+
+
+tr:nth-child(even) {background-color:rgba(233,243,255,0.8);}
+
+
+/* codepen specific styling */
+body {
+ 
+}
+
+.bcca-breadcrumb {
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+/*** breadcrumb container ***/
+.bcca-breadcrumb {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-shrink: 0;
+  width: fit-content;
+  margin-bottom: 15px;
+  position: relative;
+  border-radius: 4px;
+}
+
+/*** breadcrumb items ***/
+.bcca-breadcrumb-item {
+  transition: all 0.2s ease-in-out;
+  height: 40px;
+  background: white;
+  box-shadow: 0px 0px 18px -2px #d9d9d9;
+  line-height: 40px;
+  padding-left: 30px;
+  padding-right: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(74, 74, 74, 0.8);
+  position: relative;
+  cursor: pointer;
+  float: left;
+}
+
+.bcca-breadcrumb-item:after {
+  transition: all ease-in-out 0.2s;
+  content: "";
+  position: absolute;
+  left: calc(100% - 10px);
+  top: 6px;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  border: 14px solid #ffffff;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  box-shadow: 0px 0px 0 0px #d9d9d9, 5px -5px 10px -4px #d9d9d9;
+  transform: rotate(45deg);
+  margin-left: -4px;
+}
+
+.bcca-breadcrumb-item:last-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding-left: 10px;
+}
+
+.bcca-breadcrumb-item:first-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: rgba(23, 165, 98, 0.06);
+}
+
+.bcca-breadcrumb-item:first-child:after {
+  content: "";
+  display: none;
+}
+
+.bcca-breadcrumb-item i {
+  margin-left: 5px;
+  color: rgba(0, 0, 0, 0.2);
+
+}
+
+/*** hover breadcrumbs ***/
+.bcca-breadcrumb-item:hover {
+  background-color: #f9f9f9;
+}
+
+.bcca-breadcrumb-item:hover:after {
+  border: 14px solid #f9f9f9;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.bcca-breadcrumb-item:first-child:hover {
+  background-color: rgba(23, 165, 98, 0.15);
+}
+
+
+@import url(//db.onlinewebfonts.com/c/2f407d03c34861737fe4b85ab35eb729?family=Cera+Pro);
+
+@font-face {font-family: "Cera Pro"; src: url("//db.onlinewebfonts.com/t/2f407d03c34861737fe4b85ab35eb729.eot"); src: url("//db.onlinewebfonts.com/t/2f407d03c34861737fe4b85ab35eb729.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/2f407d03c34861737fe4b85ab35eb729.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/2f407d03c34861737fe4b85ab35eb729.woff") format("woff"), url("//db.onlinewebfonts.com/t/2f407d03c34861737fe4b85ab35eb729.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/2f407d03c34861737fe4b85ab35eb729.svg#Cera Pro") format("svg"); }
+
+@import url(//db.onlinewebfonts.com/c/98b78079f5ee4295c40260785b4e4fbf?family=Cera+Pro);
+
+@font-face {font-family: "Cera Pro Bold"; src: url("//db.onlinewebfonts.com/t/98b78079f5ee4295c40260785b4e4fbf.eot"); src: url("//db.onlinewebfonts.com/t/98b78079f5ee4295c40260785b4e4fbf.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/98b78079f5ee4295c40260785b4e4fbf.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/98b78079f5ee4295c40260785b4e4fbf.woff") format("woff"), url("//db.onlinewebfonts.com/t/98b78079f5ee4295c40260785b4e4fbf.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/98b78079f5ee4295c40260785b4e4fbf.svg#Cera Pro") format("svg"); }
+
+
+
+
+
+.alert {
+    padding: 8px;
+    background-color: #ffcfcc;
+    border: 1px solid #f44336;
+    border-left: 9px solid #f44336;
+    color: #f44336;
+    opacity: 0.83;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    width: auto;
+    max-width: 620px;
+    margin-left: 10px;
+    
+}
+.alert.success {
+    border: 1px solid #04AA6D;
+    border-left: 9px solid #04AA6D;
+    background-color: #a3ffdd;
+    color: #04AA6D;
+}
+
+/* Alert Info */
+.alert.info {
+    border: 1px solid #2196F3;
+    border-left: 9px solid #2196F3;
+    background-color: #c3d9eb;
+    color: #2196F3;
+}
+
+/* Alert Warning */
+.alert.warning {
+    border: 1px solid #ff9800;
+    border-left: 9px solid #ff9800;
+    background-color: #ffe1b5;
+    color: #ff9800;
+}
+/* Closebtn */
+.closebtn {
+    padding-left: 15px;
+    color: #f44336;
+    font-weight: bold;
+    float: right;
+    line-height: 18px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 23px;
+}
+
+/* Closebtn Success */
+.closebtn.success {
+    padding-left: 15px;
+    color: #04AA6D;
+    font-weight: bold;
+    float: right;
+    line-height: 18px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 23px;
+}
+
+/* Closebtn Info */
+.closebtn.info {
+    padding-left: 15px;
+    color: #2196F3;
+    font-weight: bold;
+    float: right;
+    line-height: 18px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 23px;
+}
+
+/* Closebtn Warning */
+.closebtn.warning {
+    padding-left: 15px;
+    color: #ff9800;
+    font-weight: bold;
+    float: right;
+    line-height: 18px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 23px;
+}
+
+.closebtn:hover {
+    transform: scale(1.3);
+}
+
+
+</style>
+
+
+</head>
+
+
+
+  <body>
+ 
+
+<div class="row">
+  <div id="admin" class="col s12">
+    <div class="card material-table">
+      <div class="table-header">
+        <span class="table-title"><i class="material-icons">
+table_chart</i> ROW - Top Tips</span>
+
+ <div class="actions">
+          <!--<a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">help_center</i></a>-->
+          <a href="#" class="search-toggle waves-effect btn-flat nopadding"> Search <i class="material-icons">search</i></a>
+        </div>
+</div>
+<br/>
+<div class="alert info">
+  <span class="closebtn info">x</span>
+  <i style="margin-right: 12px;" class="fa fa-info fa-1x"></i>  
+  To search the exact keyword kindly apply this <b style="color:black; ">" "</b> in the beginning and at the last</b>.
+</div>
+
+      <table id="datatable">
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>Property</th>
+            <th>Category</th>
+            <th>Criteria</th>
+            <th>Instruction</th>
+            <th>Effective Date</th>
+          </tr>
+
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="bcca-breadcrumb">
+<div class="bcca-breadcrumb-item"> <i class="material-icons"></i></div>
+  <!--  <div class="bcca-breadcrumb-item">Prime Lenses</div>
+  <div class="bcca-breadcrumb-item">DSLR Lenses</div>-->
+  <div class="bcca-breadcrumb-item"><a href="Toptips-GCC.html">GCC TOP-TIPS</div>
+  <div class="bcca-breadcrumb-item"><a href="Toptips-Europe.html">EUROPE TOP-TIPS</a></div>
+  <div class="bcca-breadcrumb-item"><a href="Toptips-ROW.html">ROW TOP-TIPS</a></div>
+</div>
+
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+ <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+   </body>
+<script>
+(function(window, document, undefined) {
+
+  var factory = function($, DataTable) {
+    "use strict";
+
+    $('.search-toggle').click(function() {
+      if ($('.hiddensearch').css('display') == 'none')
+        $('.hiddensearch').slideDown();
+      else
+        $('.hiddensearch').slideUp();
+    });
+
+    /* Set the defaults for DataTables initialisation */
+    $.extend(true, DataTable.defaults, {
+      dom: "<'hiddensearch'f'>" +
+        "tr" +
+        "<'table-footer'lip'>",
+      renderer: 'material'
+    });
+
+    /* Default class modification */
+    $.extend(DataTable.ext.classes, {
+      sWrapper: "dataTables_wrapper",
+      sFilterInput: "form-control input-sm",
+      sLengthSelect: "form-control input-sm"
+    });
+
+    /* Bootstrap paging button renderer */
+    DataTable.ext.renderer.pageButton.material = function(settings, host, idx, buttons, page, pages) {
+      var api = new DataTable.Api(settings);
+      var classes = settings.oClasses;
+      var lang = settings.oLanguage.oPaginate;
+      var btnDisplay, btnClass, counter = 0;
+
+      var attach = function(container, buttons) {
+        var i, ien, node, button;
+        var clickHandler = function(e) {
+          e.preventDefault();
+          if (!$(e.currentTarget).hasClass('disabled')) {
+            api.page(e.data.action).draw(false);
+          }
+        };
+
+        for (i = 0, ien = buttons.length; i < ien; i++) {
+          button = buttons[i];
+
+          if ($.isArray(button)) {
+            attach(container, button);
+          } else {
+            btnDisplay = '';
+            btnClass = '';
+
+            switch (button) {
+
+              case 'first':
+                btnDisplay = lang.sFirst;
+                btnClass = button + (page > 0 ?
+                  '' : ' disabled');
+                break;
+
+              case 'previous':
+                btnDisplay = '<i class="material-icons">chevron_left</i>';
+                btnClass = button + (page > 0 ?
+                  '' : ' disabled');
+                break;
+
+              case 'next':
+                btnDisplay = '<i class="material-icons">chevron_right</i>';
+                btnClass = button + (page < pages - 1 ?
+                  '' : ' disabled');
+                break;
+
+              case 'last':
+                btnDisplay = lang.sLast;
+                btnClass = button + (page < pages - 1 ?
+                  '' : ' disabled');
+                break;
+
+            }
+
+            if (btnDisplay) {
+              node = $('<li>', {
+                  'class': classes.sPageButton + ' ' + btnClass,
+                  'id': idx === 0 && typeof button === 'string' ?
+                    settings.sTableId + '_' + button : null
+                })
+                .append($('<a>', {
+                    'href': '#',
+                    'aria-controls': settings.sTableId,
+                    'data-dt-idx': counter,
+                    'tabindex': settings.iTabIndex
+                  })
+                  .html(btnDisplay)
+                )
+                .appendTo(container);
+
+              settings.oApi._fnBindAction(
+                node, {
+                  action: button
+                }, clickHandler
+              );
+
+              counter++;
+            }
+          }
+        }
+      };
+
+      // IE9 throws an 'unknown error' if document.activeElement is used
+      // inside an iframe or frame. 
+      var activeEl;
+
+      try {
+        // Because this approach is destroying and recreating the paging
+        // elements, focus is lost on the select button which is bad for
+        // accessibility. So we want to restore focus once the draw has
+        // completed
+        activeEl = $(document.activeElement).data('dt-idx');
+      } catch (e) {}
+
+      attach(
+        $(host).empty().html('<ul class="material-pagination"/>').children('ul'),
+        buttons
+      );
+
+      if (activeEl) {
+        $(host).find('[data-dt-idx=' + activeEl + ']').focus();
+      }
+    };
+
+    /*
+     * TableTools Bootstrap compatibility
+     * Required TableTools 2.1+
+     */
+    if (DataTable.TableTools) {
+      // Set the classes that TableTools uses to something suitable for Bootstrap
+      $.extend(true, DataTable.TableTools.classes, {
+        "container": "DTTT btn-group",
+        "buttons": {
+          "normal": "btn btn-default",
+          "disabled": "disabled"
+        },
+        "collection": {
+          "container": "DTTT_dropdown dropdown-menu",
+          "buttons": {
+            "normal": "",
+            "disabled": "disabled"
+          }
+        },
+        "print": {
+          "info": "DTTT_print_info"
+        },
+        "select": {
+          "row": "active"
+        }
+      });
+
+      // Have the collection use a material compatible drop down
+      $.extend(true, DataTable.TableTools.DEFAULTS.oTags, {
+        "collection": {
+          "container": "ul",
+          "button": "li",
+          "liner": "a"
+        }
+      });
+    }
+
+  }; // /factory
+
+  // Define as an AMD module if possible
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery', 'datatables'], factory);
+  } else if (typeof exports === 'object') {
+    // Node/CommonJS
+    factory(require('jquery'), require('datatables'));
+  } else if (jQuery) {
+    // Otherwise simply initialise as normal, stopping multiple evaluation
+    factory(jQuery, jQuery.fn.dataTable);
+  }
+
+})(window, document);
+
+$(document).ready(function() {
+  $('#datatable').dataTable({
+    "ajax": '',
+    "oLanguage": {
+      "sStripClasses": "",
+      "sSearch": "",
+      "sSearchPlaceholder": "Enter any keyword here to filter...",
+      "sInfo": "_START_ -_END_ of _TOTAL_",
+      "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+        '<option value="10">10</option>' +
+        '<option value="20">20</option>' +
+        '<option value="30">30</option>' +
+        '<option value="40">40</option>' +
+        '<option value="50">50</option>' +
+        '<option value="-1">All</option>' +
+        '</select></div>'
+    },
+    bAutoWidth: false
+  });
+});
+
+var acc = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        var div = this.parentElement;
+        div.style.opacity = "0";
+        setTimeout(function(){ div.style.display = "none"; }, 600);
+    }
+}
+
+
+</script>
+
+</html>
